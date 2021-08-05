@@ -1,16 +1,19 @@
 import React from 'react';
 
-function Food(props){
-  console.log(props);
+function Food({fav}){
+  // console.log(props);
   return(
-    <h1>i love Potato</h1>
+    <h1>i love {fav}</h1>
   )
 }
+
 function App() {
   return (
   <div>
     <h1>hi</h1>
-    <Food fav="Kimchi" somthing={true} papapapa={['hello', 1, 2, 3, 4, true]} />
+    <Food fav="Kimchi22"  />
+    <Food fav="Kimchi32"  />
+    <Food fav="Kimchi42"  />
   </div>
   );
 }
@@ -19,7 +22,8 @@ function App() {
 
 export default App;
 
-//JSX
+//JSX JavaScript eXtension
+//HTML같은 마크업 언어를 리터럴로 입력하는 것으로 보이는데, 빌드 시 Babel에 의해 자바스크립트로 변환된다. 자바스크립트 코드를 HTML처럼 표현할 수 있기 때문에 용이한 개발이 가능
 //const element = <h1>Hello, world!</h1>;
 //태그 문법은 문자열도 HTML도 아닙니다. JSX라고 부르며, 자바스크립트의 문법 확장
 // JSX를 리액트와 함께 사용하여 UI가 실제로 어떻게 보일 지 설명하는 걸 권장합니다.
