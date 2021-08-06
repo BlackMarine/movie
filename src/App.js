@@ -1,42 +1,67 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Food({name, picture}){
+function Food({name, picture, rating}){
   // console.log(props);
   return(
     <>
     <h2>i love {name}</h2>
-    <img src={picture} />
+    <h4>{rating}/5.0</h4>
+    <img src={picture} alt={name}/>
     </>
   )
 }
 
 const foodILike = [
   {
+    id: 1,
     name: 'kimchi1',
-    image: '1'
+    image: '1',
+    rating: 5
   },
   {
+    id: 2,
     name: 'kimchi2',
-    image: '2'
+    image: '2',
+    rating: 4.9
   },
   {
+    id: 3,
     name: 'kimchi3',
-    image: '3'
+    image: '3',
+    rating: 3.6
   },
   {
+    id: 4,
     name: 'kimchi4',
-    image: '4'
+    image: '4',
+    rating: 2.1
   },
 ];
+
+// function renderFood(dish){
+//   return <Food name={dish.name} picture={dish.image} />;
+// }
+
+// const renderFood = dish => <Food name={dish.name} picture={dish.image}/>;
+// 5 props map을 이용한 컴포넌트를 여러 개 만드는 방법을 학습.
 
 function App() {
   return (
   <div>
     <h1>hi</h1>
-    {foodILike.map(dish => (<Food name={dish.name} picture={dish.image} />))}
+    {foodILike.map(dish => (
+      <Food key={dish.id} name={dish.name} picture={dish.image} rating={dish.rating} />
+    ))}
   </div>
   );
 }
+
+Food.propTypes = {
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  rating: PropTypes.number,
+};
 
 
 
