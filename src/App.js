@@ -7,12 +7,20 @@ import axios from 'axios';
 class App extends React.Component {
   state ={
     isLoading: true,
-    movie: [],
+    movies: [],
   }
 
   getMovies = async () => { //이함수는 시간이 필요해~~ 비동기야
-    const movies = await axios.get('https://yts.mx/api/v2/list_movies.json'); // ㅇㅋ~~실행을 기다려줘 비동기라서 기다려야해
+    const {
+      data: {
+        data: {movies},
+      },
+    } = await axios.get('https://yts-proxy.now.sh/list_movies.json'); // ㅇㅋ~~실행을 기다려줘 비동기라서 기다려야해
+
+    // console.log(movies);
+    this.setState({ movies, isLoading: false});
   }
+
 
   componentDidMount() {
     // 영화 데이터 로딩
