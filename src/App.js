@@ -1,62 +1,29 @@
-//5 클래스형 컴포너느에서 사용할 수 있는 개념 state
-//  클래스형 컴포넌트에서는 JSX를 반환하기 위해 render() 함수를 사용함
-
-//6 생명주기 함수를 이용해서 영화데이터 가져와야함.
-// -js constructor() : 자바스크립트에서 render보다 먼저실행 p.191
-// -componentDidMount() : 컴포넌트가 처음 화면에 그려지면 실행되는 함수 p.131
-import { thisStringValue } from 'es-abstract';
+//영화앱 로딩화면구현 isLoadingstate
+//constructor(props) -> 렌더 -> componentDidMount -> 
+//자바스크립트에게 getMovies()함수는 시간이 좀 필요해 라고 해야함 -> async, await
 import React from 'react';
+import axios from 'axios';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('hello'); //생명주기`1`
+  state ={
+    isLoading: true,
+    movie: [],
   }
 
-  state = {
-    const: 0,
-  };
-
-  set = () => {
-    this.setState({count: 10});
-  }
-
-  add = () => {
-    //this.setState({count: this.state.count +1}); //상태는 setState를 이용하여 변경, render가 자동으로 실행됨 .
-    this.setState(current => ({
-      count: current.count + 1,
-    }));
-  }
-
-  minus = () => {
-    this.setState(current => ({
-      count: current.count - 1,
-    }));
+  getMovies = async () => { //이함수는 시간이 필요해~~ 비동기야
+    const movies = await axios.get('https://yts.mx/api/v2/list_movies.json'); // ㅇㅋ~~실행을 기다려줘 비동기라서 기다려야해
   }
 
   componentDidMount() {
-    console.log('component rendered');//생명주기`3`
+    // 영화 데이터 로딩
+    // setTimeout(() => {
+    //   this.setState({isLoading: false});
+    // }, 2000);
+    this.getMovies();
   }
-
-  componentDidUpdate() {
-    console.log('I just updated'); // setState()함수실행 -> render()함수실행 -> componentDidUpdated()함수실행
-  }
-
-  componentWillUnmount() {
-    console.log('Goodbye, cruel worldㅜㅠ'); // 컴포넌트가 화면에서 떠날 때 실행하는것.
-  }
-
-
   render() {
-    console.log("I'm rendering");//생명주기`2`
-    return (
-      <>
-        <h1>The numvber is: {this.state.count}</h1>
-        <button onClick={this.set}>Set</button>
-        <button onClick={this.add}>Add</button>
-        <button onClick={this.minus}>Miuns</button>
-      </>
-    );
+    const { isLoading} = this.state;
+    return <div>{isLoading ? 'true 로딩중' : 'false we are ready'}</div>
   }
 }
 
