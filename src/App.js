@@ -3,6 +3,7 @@
 //자바스크립트에게 getMovies()함수는 시간이 좀 필요해 라고 해야함 -> async, await
 import React from 'react';
 import axios from 'axios';
+import Movie from './movie';
 
 class App extends React.Component {
   state ={
@@ -15,7 +16,7 @@ class App extends React.Component {
       data: {
         data: {movies},
       },
-    } = await axios.get('https://yts-proxy.now.sh/list_movies.json'); // ㅇㅋ~~실행을 기다려줘 비동기라서 기다려야해
+    } = await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating'); // ㅇㅋ~~실행을 기다려줘 비동기라서 기다려야해
 
     // console.log(movies);
     this.setState({ movies, isLoading: false});
@@ -30,8 +31,15 @@ class App extends React.Component {
     this.getMovies();
   }
   render() {
-    const { isLoading} = this.state;
-    return <div>{isLoading ? 'true 로딩중' : 'false we are ready'}</div>
+    const { isLoading, movies} = this.state;
+    return <div>{isLoading ? "true 로딩중" : movies.map(movie => {console.log(movie); return <Movie
+    key = {movie.id}
+    id = {movie.id}
+    year = {movie.year}
+    title = {movie.title}
+    summary = {movie.summary}
+    poster = {movie.medium_cover_image}
+    />;})}</div>;
   }
 }
 
